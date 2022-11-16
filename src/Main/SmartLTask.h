@@ -2,12 +2,13 @@
 #define __SMARTLTASK__
 
 #include "Task.h"
+#include "ProximitySensor.h"
 
 class SmartLTask: public Task {
 
   int pin;
   Light* led;
-  // ProximitySensor* PIR;
+  ProximitySensor* PIR;
   // LightSensor* LS;
   enum { ON, TURNING_OFF, OFF} state;
 
