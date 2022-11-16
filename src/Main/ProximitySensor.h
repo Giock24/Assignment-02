@@ -12,7 +12,8 @@ class ProximitySensor {
 
   public:
 
-  ProximitySensor(int pin, const mode);
+  ProximitySensor(int pin);
   bool isSomeoneDetected();
+};
 
-}
+#endif

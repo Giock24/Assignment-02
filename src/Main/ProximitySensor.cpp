@@ -3,10 +3,10 @@
 #include "ProximitySensor.h"
 #include "Arduino.h"
 
-ProximitySensor::ProximitySensor(int pin, const mode) {
+ProximitySensor::ProximitySensor(int pin) {
   this->pin = pin;
   this->detectedStatus = false;
-  pinMode(pin, INPUT)
+  pinMode(pin, INPUT);
   this->calibratePIR();
 }
 
@@ -20,5 +20,10 @@ void ProximitySensor::calibratePIR() {
 
 bool ProximitySensor::isSomeoneDetected() {
   detectedStatus = digitalRead(pin);
+  if (detectedStatus) {
+    Serial.println("detected!");
+  } else {
+    Serial.println("no more detected.");
+  }
   return detectedStatus;
 }

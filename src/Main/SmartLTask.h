@@ -2,15 +2,17 @@
 #define __SMARTLTASK__
 
 #include "Task.h"
+#include "Led.h"
 #include "ProximitySensor.h"
+#include "LightSensor.h"
 
 class SmartLTask: public Task {
 
   int pin;
   Light* led;
   ProximitySensor* PIR;
-  // LightSensor* LS;
-  enum { ON, TURNING_OFF, OFF} state;
+  LightSensor* LS;
+  enum { ON, TURNING_OFF, OFF } state;
 
   public:
 
@@ -18,6 +20,6 @@ class SmartLTask: public Task {
   void init(int period);
   void tick();
 
-}
+};
 
 #endif

@@ -1,4 +1,8 @@
 #include "SmartLTask.h"
+#include "Arduino.h"
+
+#define PHOTORES_PIN A0
+#define PIR_PIN 2
 
 SmartLTask::SmartLTask(int pin) {
   this->pin = pin;
@@ -6,8 +10,10 @@ SmartLTask::SmartLTask(int pin) {
 
 void SmartLTask::init(int period) {
   Task::init(period);
-  led = new Led(pin);
+  this->led = new Led(pin);
   state = OFF;
+  this->LS = new LightSensor(PHOTORES_PIN);
+  this->PIR = new ProximitySensor(PIR_PIN);
 }
 
 void SmartLTask::tick() {
