@@ -1,44 +1,47 @@
 #include "SmartLTask.h"
+#include "LightSensorTask.h"
 #include "Arduino.h"
 
-#define PHOTORES_PIN A0
-#define PIR_PIN 2
+#define INHIBIT_LS 0
 
-SmartLTask::SmartLTask(int pin) {
-  this->pin = pin;
+const double Lmax = 4.0;
+
+SmartLTask::SmartLTask(int ledPin, PIRTask* pir, LightSensorTask* lightSensor) {
+  this->PIR = pir;
+  this->led = new Led(ledPin);
+  this->LS = lightSensor;
+  this->waterLevelCritical = false;
 }
 
 void SmartLTask::init(int period) {
   Task::init(period);
-  this->led = new Led(pin);
   state = OFF;
-  this->LS = new LightSensor(PHOTORES_PIN);
-  this->PIR = new ProximitySensor(PIR_PIN);
 }
 
 void SmartLTask::tick() {
   switch(state) {
     case OFF:
-      // if (isSomeoneDetected() && getIntensity()<Lmax)
-      led->switchOn();
-      state = ON;
+      if (PIR->isSomeoneDetected() && (INHIBIT_LS || LS->getIntensity() < Lmax) && !waterLevelCritical) {
+        led->switchOn();
+        state = ON;
+      }
+
       break;
     case ON:
-      // if (getIntensity()>=Lmax)
-      led->switchOff();
-      state = OFF;
-
-      // if (!isSomeoneDetected)
-      state = TURNING_OFF;
-
-      // if (waterLevelCritical) when in FSM bridge is in state = Alarm (WaterLevel BETWEEN WL2 And WLMAX)
-      state = OFF;
+      if (waterLevelCritical || (LS->getIntensity() >= Lmax && !INHIBIT_LS)) {
+        led->switchOff();
+        state = OFF;
+      } else if (!PIR->isSomeoneDetected()) {
+        state = TURNING_OFF;
+      }
       break;
     case TURNING_OFF:
-      // if (isSomeoneDetected during T1)
-      state = ON;
-      // else
-      state = OFF;
+      if (PIR->isSomeoneDetectedT1()) {
+        state = ON;
+      } else {
+        led->switchOff();
+        state = OFF;
+      }
       break;
   }
 }

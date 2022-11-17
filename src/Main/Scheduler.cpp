@@ -1,8 +1,6 @@
 #include "Scheduler.h"
 #include <TimerOne.h>
 
-#define MAX_TASKS 10
-
 volatile bool timerFlag;
 
 void timerHandler(void){

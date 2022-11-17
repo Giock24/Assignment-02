@@ -3,20 +3,20 @@
 
 #include "Task.h"
 #include "Led.h"
-#include "ProximitySensor.h"
-#include "LightSensor.h"
+#include "PIRTask.h"
+#include "LightSensorTask.h"
 
 class SmartLTask: public Task {
 
-  int pin;
+  PIRTask* PIR;
   Light* led;
-  ProximitySensor* PIR;
-  LightSensor* LS;
+  LightSensorTask* LS;
+  bool waterLevelCritical; //when in FSM bridge is in state = Alarm (WaterLevel betweeen WL2 and WLMAX)
   enum { ON, TURNING_OFF, OFF } state;
 
   public:
 
-  SmartLTask(int pin);
+  SmartLTask(int pin, PIRTask* pir, LightSensorTask* lightSensor);
   void init(int period);
   void tick();
 
