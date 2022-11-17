@@ -27,3 +27,24 @@ bool ProximitySensor::isSomeoneDetected() {
   }
   return detectedStatus;
 }
+
+void ProximitySensor::init(int period) {
+  Task::init(period);
+  state = NOT_DETECTED;
+}
+
+void ProximitySensor::tick() {
+  switch(state) {
+    case DETECTED:
+      if (!this->isSomeoneDetected()) {
+        state = NOT_DETECTED;
+      }
+      break;
+
+    case NOT_DETECTED:
+      if (this->isSomeoneDetected()) {
+        state = DETECTED;
+      }
+      break;
+  }
+}
