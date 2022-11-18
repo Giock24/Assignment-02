@@ -1,8 +1,6 @@
-#define CALIBRATION_TIME_SEC 10
-#define T1 3 // max time in which nobody has been detected
-
 #include "PIRTask.h"
 #include "Arduino.h"
+#include "Const.h"
 
 PIRTask::PIRTask(int pin) {
   this->pin = pin;
@@ -31,8 +29,8 @@ bool PIRTask::isSomeoneDetected() {
 
 void PIRTask::init(int period) {
   Task::init(period);
-  this->myPeriod = period; //
-  this->timeNotDetected = 0; //
+  this->myPeriod = period;
+  this->timeNotDetected = 0;
   state = NOT_DETECTED;
 }
 
@@ -45,10 +43,10 @@ void PIRTask::tick() {
       break;
 
     case NOT_DETECTED:
-      this->timeNotDetected += this->myPeriod; //
+      this->timeNotDetected += this->myPeriod;
 
       if (this->isSomeoneDetected()) {
-        this->timeNotDetected = 0; //
+        this->timeNotDetected = 0;
         state = DETECTED;
       }
       break;

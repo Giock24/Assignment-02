@@ -1,9 +1,6 @@
 #include "Scheduler.h"
 #include "SmartLTask.h"
-
-#define LED_PIN 10
-#define PIR_PIN 2
-#define LIGHTSENSOR_PIN A0
+#include "Const.h"
 
 Light* led;
 Scheduler sched;

@@ -5,8 +5,8 @@
 
 class PIRTask: public Task {
 
-  int timeNotDetected; //
-  int myPeriod; //
+  int timeNotDetected;
+  int myPeriod;
 
   int pin;
   bool detectedStatus;
