@@ -11,6 +11,7 @@
 #define LED_PIN 3
 #define LED_B 4
 #define LED_C 5
+#define BUTTON_PIN 6
 #define LIGHTSENSOR_PIN A0
 
 #endif

@@ -11,14 +11,14 @@ const int prealarmPE = 50;
 const int alarmPE = 15;
 const long blinkPeriod = 2000;
 
-BridgeTask::BridgeTask(int pin1, int pin2) {
+BridgeTask::BridgeTask(int pin1, int pin2, int buttonPin) {
   // this->S = sonar;
   // this->SM = servoMotor;
   // this->Pot = potentiometer;
   this->LC = new Led(pin1);
   this->LB = new Led(pin2);
-  // this->B = button;
-  // this-> LCD = lcd;
+  // this->B = new Button(buttonPin);
+  // this-> LCD = new LCD();
 }
 
 void BridgeTask::init(int period) {
@@ -43,7 +43,7 @@ void BridgeTask::tick() {
         LC->switchOn();        
       break;
     case ALARM:
-      // lcd->showText("Alarm -> (String)sonar->getRiverLevel())
+      //lcd->showText("Alarm -> " + (String) sonar->getRiverLevel());
       // if (sonar->getRiverLevel() < WL1)
         state = NORMAL;
         Task::init(normalPE);
@@ -51,6 +51,7 @@ void BridgeTask::tick() {
         LC->switchOff();
        break;
     case HUMAN_CONTROL:
+      // TODO
       break;
   }
 }
