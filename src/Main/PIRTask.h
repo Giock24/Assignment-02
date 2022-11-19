@@ -3,6 +3,9 @@
 
 #include "Task.h"
 
+#define CALIBRATION_TIME_SEC 10
+#define T1 3 // max time in which nobody has been detected
+
 class PIRTask: public Task {
 
   int timeNotDetected;

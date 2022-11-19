@@ -7,9 +7,12 @@ class Led: public Light {
 public:
   Led(int pin);
   void switchOn();
-  void switchOff();    
+  void switchOff();
+  void blink(double period);    
 private:
-  int pin;  
+  int pin;
+  bool currentState; // true = ON, false = OFF
+  long prevts;  
 };
 
 #endif

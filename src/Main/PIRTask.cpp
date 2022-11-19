@@ -1,6 +1,5 @@
 #include "PIRTask.h"
 #include "Arduino.h"
-#include "Const.h"
 
 PIRTask::PIRTask(int pin) {
   this->pin = pin;

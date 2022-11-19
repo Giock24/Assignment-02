@@ -2,7 +2,8 @@
 #define __SCHEDULER__
 
 #include "Task.h"
-#include "Const.h"
+
+#define MAX_TASKS 20
 
 class Scheduler {
   
