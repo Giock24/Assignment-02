@@ -30,28 +30,42 @@ void BridgeTask::tick() {
   switch (state) {
     case NORMAL:
       // if (sonar->getRiverLevel() > WL1 && sonar->getRiverLevel() < WL2)
-      // lcd->showText("Pre-Alarm");
-        state = PRE_ALARM;
-        Task::init(prealarmPE);
+        this->changeToPreAlarm();
       break;
     case PRE_ALARM:
       LC->blink(blinkPeriod);
       // if (sonar->getRiverLevel() > WL2 && sonar->getRiverLevel() <= WL_MAX)
-        state = ALARM;
-        Task::init(alarmPE);
-        LB->switchOff();
-        LC->switchOn();        
+        this->changeToPreAlarm();
+      // if (sonar->getRiverLevel() < WL1)
+        this->changeToNormal();
       break;
     case ALARM:
       //lcd->showText("Alarm -> " + (String) sonar->getRiverLevel());
       // if (sonar->getRiverLevel() < WL1)
-        state = NORMAL;
-        Task::init(normalPE);
-        LB->switchOn();
-        LC->switchOff();
+        this->changeToNormal();
        break;
     case HUMAN_CONTROL:
       // TODO
       break;
   }
+}
+
+void BridgeTask::changeToNormal() {
+  state = NORMAL;
+  Task::init(normalPE);
+  LB->switchOn();
+  LC->switchOff();  
+}
+
+void BridgeTask::changeToPreAlarm() {
+  // lcd->showText("Pre-Alarm");
+  state = PRE_ALARM;
+  Task::init(prealarmPE);
+}
+
+void BridgeTask::changeToAlarm() {
+  state = ALARM;
+  Task::init(alarmPE);
+  LB->switchOff();
+  LC->switchOn();  
 }

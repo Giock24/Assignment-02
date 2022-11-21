@@ -17,6 +17,12 @@ class BridgeTask: public Task {
   LCD* lcd;
   enum { NORMAL, PRE_ALARM, ALARM, HUMAN_CONTROL } state;
 
+  private:
+
+  void changeToNormal();
+  void changeToPreAlarm();
+  void changeToAlarm();
+
   public:
 
   BridgeTask(int pin1, int pin2, int buttonPin);

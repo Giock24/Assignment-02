@@ -27,8 +27,8 @@ void ServMotorTask::tick(){
 }
 
 int ServMotorTask::GetRadious(){
-  if(MySonar->GetRiverLevel > WL2 && MySonar->GetRiverLevel <= WLMAX){
-    float difference = WLMAX - MySonar->GetRiverLevel;
+  if(MySonar->getRiverLevel() > WL2 && MySonar->getRiverLevel() <= WLMAX){
+    float difference = WLMAX - MySonar->getRiverLevel();
     int radious = map(difference, 0.01, 5.00, 1, 180 );
     return radious;
   }

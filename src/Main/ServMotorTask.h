@@ -2,6 +2,7 @@
 #define __SERVMOTORTASK__
 
 #include "Task.h"
+#include "Sonar.h"
 
 class ServMotorTask: public Task {
 
