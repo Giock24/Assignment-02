@@ -5,10 +5,16 @@
 #include "Const.h"
 #include "Led.h"
 #include "LCD.h"
+#include "Sonar.h"
+
+// value of Water Level to modify
+#define WL1 2
+#define WL2 5
+#define WL_MAX 6
 
 class BridgeTask: public Task {
 
-  // Sonar* S;
+  Sonar* S;
   // ServoMotor* SM;
   // PotentiometerTask* Pot;
   Light* LC;
@@ -25,7 +31,7 @@ class BridgeTask: public Task {
 
   public:
 
-  BridgeTask(int pin1, int pin2, int buttonPin);
+  BridgeTask(int pin1, int pin2, int buttonPin, Sonar* sonar);
   void init(int period);
   void tick();
 

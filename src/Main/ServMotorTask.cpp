@@ -1,8 +1,6 @@
 #include "ServMotorTask.h"
 #include "Arduino.h"
-
-float const WL2 = 20.00;
-float const WLMAX = 25.00;
+#include "BridgeTask.h"
 
 ServMotorTask::ServMotorTask(int pin, Sonar* sonar){
   this->pin = pin;
@@ -27,8 +25,8 @@ void ServMotorTask::tick(){
 }
 
 int ServMotorTask::GetRadious(){
-  if(MySonar->getRiverLevel() > WL2 && MySonar->getRiverLevel() <= WLMAX){
-    float difference = WLMAX - MySonar->getRiverLevel();
+  if(MySonar->getRiverLevel() > WL2 && MySonar->getRiverLevel() <= WL_MAX){
+    float difference = WL_MAX - MySonar->getRiverLevel();
     int radious = map(difference, 0.01, 5.00, 1, 180 );
     return radious;
   }

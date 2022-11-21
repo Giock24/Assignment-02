@@ -1,12 +1,15 @@
 #include "Scheduler.h"
 #include "SmartLTask.h"
 #include "Const.h"
+#include "Sonar.h"
 
-Light* led;
 Scheduler sched;
+Sonar* sonar; // sonar must be shared for ServMotorTask
 
 void setup(){
   Serial.begin(9600);
+  sonar = new Sonar(TRIG_PIN, ECHO_PIN);
+
   sched.init(100);
 
   Task* t0 = new PIRTask(PIR_PIN);
