@@ -3,19 +3,20 @@
 
 #include "Task.h"
 #include "Sonar.h"
+#include "ServoMotor.h"
 
 class ServMotorTask: public Task {
 
-  int pin;
-  Sonar* MySonar;
+  Sonar* mysonar;
+  ServoMotor* myservo;
   //enum controlState { AUTO, MANUAL } Cstate;
   enum valveState { OPEN, CLOSE } Vstate;
 
   public:
-  ServMotorTask(int pin, Sonar* sonar);
+  ServMotorTask(ServoMotor* servo, Sonar* sonar);
   void init(int period);
   void tick();
-  int GetRadious();
+  int openingAngle();
 
 };
 
