@@ -13,6 +13,6 @@ class ServoMotor{
   void move(int angle);
   int getAngle();
 
-}
+};
 
 #endif

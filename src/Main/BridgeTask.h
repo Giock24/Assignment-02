@@ -23,6 +23,7 @@ class BridgeTask: public Task {
   LCD* lcd;
   enum tipo { NORMAL, PRE_ALARM, ALARM, HUMAN_CONTROL } state;
 
+
   private:
 
   void changeToNormal();
@@ -34,6 +35,7 @@ class BridgeTask: public Task {
   BridgeTask(int pin1, int pin2, int buttonPin, Sonar* sonar);
   void init(int period);
   void tick();
+  enum tipo getStatus();
 
 };
 

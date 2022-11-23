@@ -4,7 +4,8 @@
 
 float difference = 0;
 
-enum tipo (*example)();
+//enum tipo { NORMAL, PRE_ALARM, ALARM, HUMAN_CONTROL };
+// enum tipo state;
 
 ServMotorTask::ServMotorTask(ServoMotor* servo, Sonar* sonar){
   this->myservo = servo;
@@ -19,19 +20,19 @@ void ServMotorTask::init(int period){
 void ServMotorTask::tick(){
   switch(Vstate){
     case(CLOSE):
-      if(/* BridgeTask.state == Alarm*/) {
+      if( true /*state == ALARM*/) {
         this->Vstate = OPEN;
-        this->myservo.move(openingAngle());
+        this->myservo->move(openingAngle());
       }
 
       break;
     case(OPEN):
-      if(/* BridgeTask.state != Alarm*/){
+      if(false/*state != ALARM*/){
         this->Vstate = CLOSE;
-        this->myservo.move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
+        this->myservo->move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
       }
       else{
-        this->myservo.move(openingAngle());
+        this->myservo->move(openingAngle());
       }
 
       break;
