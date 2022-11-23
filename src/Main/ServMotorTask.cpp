@@ -4,6 +4,8 @@
 
 float difference = 0;
 
+enum tipo (*example)();
+
 ServMotorTask::ServMotorTask(ServoMotor* servo, Sonar* sonar){
   this->myservo = servo;
   this->mysonar = sonar;

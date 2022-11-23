@@ -21,7 +21,7 @@ class BridgeTask: public Task {
   Light* LB;
   // Button* B;
   LCD* lcd;
-  enum { NORMAL, PRE_ALARM, ALARM, HUMAN_CONTROL } state;
+  enum tipo { NORMAL, PRE_ALARM, ALARM, HUMAN_CONTROL } state;
 
   private:
 
