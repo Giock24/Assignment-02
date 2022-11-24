@@ -11,12 +11,12 @@ class SmartLTask: public Task {
   PIRTask* PIR;
   Light* led;
   LightSensorTask* LS;
-  bool waterLevelCritical; //when in FSM bridge is in state = Alarm (WaterLevel betweeen WL2 and WLMAX)
+  bool* waterLevelCritical; //when in FSM bridge is in state = Alarm (WaterLevel betweeen WL2 and WLMAX)
   enum { ON, TURNING_OFF, OFF } state;
 
   public:
 
-  SmartLTask(int pin, PIRTask* pir, LightSensorTask* lightSensor);
+  SmartLTask(int pin, PIRTask* pir, LightSensorTask* lightSensor, bool* waterLevelCritical);
   void init(int period);
   void tick();
 

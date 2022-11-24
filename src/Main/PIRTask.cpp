@@ -21,7 +21,7 @@ bool PIRTask::isSomeoneDetected() {
   if (detectedStatus) {
     Serial.println("detected!");
   } else {
-    Serial.println("no more detected.");
+    //Serial.println("no more detected.");
   }
   return detectedStatus;
 }

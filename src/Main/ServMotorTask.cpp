@@ -17,20 +17,20 @@ void ServMotorTask::init(int period){
 void ServMotorTask::tick(){
   switch(Vstate){
     case(CLOSE):
-      if(/* BridgeTask.state == Alarm*/) {
+      //if(/* BridgeTask.state == Alarm*/) {
         this->Vstate = OPEN;
-        this->myservo.move(openingAngle());
-      }
+        //this->myservo.move(openingAngle());
+      //}
 
       break;
     case(OPEN):
-      if(/* BridgeTask.state != Alarm*/){
+      //if(/* BridgeTask.state != Alarm*/){
         this->Vstate = CLOSE;
-        this->myservo.move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
-      }
-      else{
-        this->myservo.move(openingAngle());
-      }
+        //this->myservo.move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
+      //}
+      //else{
+        //this->myservo.move(openingAngle());
+      //}
 
       break;
 

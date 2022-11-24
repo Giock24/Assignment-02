@@ -16,7 +16,7 @@ void LightSensorTask::init(int period) {
 void LightSensorTask::tick() {
   int value = analogRead(pin);
   valueInVolt = ((double) value) * 5/1024;
-  Serial.println(String(value) + " -> in volt: " + valueInVolt );
+  //Serial.println(String(value) + " -> in volt: " + valueInVolt );
 }
 
 double LightSensorTask::getIntensity() {

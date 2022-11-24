@@ -7,13 +7,14 @@
 #include "LCD.h"
 #include "Sonar.h"
 
-// value of Water Level to modify
+// value of Water Level (metres)
 #define WL1 2
 #define WL2 5
 #define WL_MAX 6
 
 class BridgeTask: public Task {
 
+  bool* waterLevelCritical;
   Sonar* S;
   // ServoMotor* SM;
   // PotentiometerTask* Pot;
@@ -25,13 +26,14 @@ class BridgeTask: public Task {
 
   private:
 
+  void setWaterLevelCritical(bool value);
   void changeToNormal();
   void changeToPreAlarm();
   void changeToAlarm();
 
   public:
 
-  BridgeTask(int pin1, int pin2, int buttonPin, Sonar* sonar);
+  BridgeTask(int pinLedB, int pinLedC, int buttonPin, Sonar* sonar, bool* waterLevelCritical);
   void init(int period);
   void tick();
 

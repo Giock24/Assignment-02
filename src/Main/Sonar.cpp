@@ -1,7 +1,7 @@
 #include "Sonar.h"
 #include "Arduino.h"
 
-const float vs = 331.5 + 0.6*20;
+const float vs = 331.45 + 0.62*20;
 
 Sonar::Sonar(int trigPin, int echoPin) {
   this->trigPin = trigPin;
@@ -22,5 +22,6 @@ float Sonar::getRiverLevel() {
   float tUS = pulseIn(this->echoPin, HIGH);
   float t = tUS / 1000.0 / 1000.0 / 2;
   this->currentLevel = t * vs;
+  Serial.println("water level -> "+ (String) this->currentLevel);
   return this->currentLevel;
 }

@@ -6,11 +6,11 @@
 
 const double Lmax = 4.0;
 
-SmartLTask::SmartLTask(int ledPin, PIRTask* pir, LightSensorTask* lightSensor) {
+SmartLTask::SmartLTask(int ledPin, PIRTask* pir, LightSensorTask* lightSensor, bool* waterLevelCritical) {
   this->PIR = pir;
   this->led = new Led(ledPin);
   this->LS = lightSensor;
-  this->waterLevelCritical = false;
+  this->waterLevelCritical = waterLevelCritical;
 }
 
 void SmartLTask::init(int period) {
@@ -21,14 +21,14 @@ void SmartLTask::init(int period) {
 void SmartLTask::tick() {
   switch(state) {
     case OFF:
-      if (PIR->isSomeoneDetected() && (INHIBIT_LS || LS->getIntensity() < Lmax) && !waterLevelCritical) {
+      if (PIR->isSomeoneDetected() && (INHIBIT_LS || LS->getIntensity() < Lmax) && !*waterLevelCritical) {
         led->switchOn();
         state = ON;
       }
 
       break;
     case ON:
-      if (waterLevelCritical || (LS->getIntensity() >= Lmax && !INHIBIT_LS)) {
+      if (*waterLevelCritical || (LS->getIntensity() >= Lmax && !INHIBIT_LS)) {
         led->switchOff();
         state = OFF;
       } else if (!PIR->isSomeoneDetected()) {
