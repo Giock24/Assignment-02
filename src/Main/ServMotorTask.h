@@ -12,6 +12,9 @@ class ServMotorTask: public Task {
   //enum controlState { AUTO, MANUAL } Cstate;
   enum valveState { OPEN, CLOSE } Vstate;
 
+  private:
+  bool checkWater();
+
   public:
   ServMotorTask(ServoMotor* servo, Sonar* sonar);
   void init(int period);

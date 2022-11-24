@@ -2,11 +2,15 @@
 #include "Arduino.h"
 #include "BridgeTask.h"
 
-float difference = 0;
+// float difference = 0;
 
 ServMotorTask::ServMotorTask(ServoMotor* servo, Sonar* sonar){
   this->myservo = servo;
   this->mysonar = sonar;
+}
+
+bool ServMotorTask::checkWater(){
+  return mysonar->getRiverLevel() > WL_MAX && mysonar->getRiverLevel() <= WL2;
 }
 
 void ServMotorTask::init(int period){
@@ -17,20 +21,20 @@ void ServMotorTask::init(int period){
 void ServMotorTask::tick(){
   switch(Vstate){
     case(CLOSE):
-      //if(/* BridgeTask.state == Alarm*/) {
+      if(checkWater()) {
         this->Vstate = OPEN;
-        //this->myservo.move(openingAngle());
-      //}
+        this->myservo->move(openingAngle());
+      }
 
       break;
     case(OPEN):
-      //if(/* BridgeTask.state != Alarm*/){
+      if(!checkWater()){
         this->Vstate = CLOSE;
-        //this->myservo.move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
-      //}
-      //else{
-        //this->myservo.move(openingAngle());
-      //}
+        this->myservo->move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
+      }
+      else{
+        this->myservo->move(openingAngle());
+      }
 
       break;
 
@@ -39,9 +43,9 @@ void ServMotorTask::tick(){
 
 // Questo metodo ritorna l'angolo di apertura in base a quanto è alto il livello dell'acqua.
 int ServMotorTask::openingAngle(){
-  if(mysonar->getRiverLevel() > WL2 && mysonar->getRiverLevel() <= WL_MAX){
-    float difference = WL_MAX - mysonar->getRiverLevel();
-    int radious = map(difference, 0.01, 5.00, 1, 180 );
+  if(checkWater()){
+    // float difference = WL_MAX - mysonar->getRiverLevel();
+    int radious = map(mysonar->getRiverLevel(), 0.00, 0.05, 180, 1 );
     return radious;
   }
   return 0;
