@@ -23,26 +23,30 @@ void BridgeTask::init(int period) {
 }
 
 void BridgeTask::tick() {
+  float riverLevel = S->getRiverLevel();
   switch (state) {
     case NORMAL:
-      if (S->getRiverLevel() > WL1 && S->getRiverLevel() < WL2) {
+      Serial.println("Normal");
+      if (riverLevel > WL2 && riverLevel < WL1) {
         this->changeToPreAlarm();
       }
       break;
     case PRE_ALARM:
       LC->blink(blinkPeriod);
-      if (S->getRiverLevel() > WL2 && S->getRiverLevel() <= WL_MAX) {
+      Serial.println("Pre-Alarm");
+      if (riverLevel > WL_MAX && riverLevel <= WL2) {
         this->changeToAlarm();
       }
-      if (S->getRiverLevel() < WL1) {
+      if (riverLevel >= WL1) {
         this->changeToNormal();        
       }
       break;
     case ALARM:
+      Serial.println("Alarm");
       //lcd->showText("Alarm -> " + (String) sonar->getRiverLevel());
 
 
-      if (S->getRiverLevel() < WL1) {
+      if (riverLevel >= WL1) {
         this->changeToNormal();
       }
        break;

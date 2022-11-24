@@ -9,8 +9,8 @@
 // pins:
 #define PIR_PIN 2
 #define LED_PIN 3
-#define LED_B 4
-#define LED_C 5
+#define LED_B 4 // GREEN LED
+#define LED_C 5 // RED LED
 #define BUTTON_PIN 6
 #define TRIG_PIN 8
 #define ECHO_PIN 9

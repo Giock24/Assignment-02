@@ -21,6 +21,7 @@ void Led::switchOff(){
 
 void Led::blink(double period) {
   long ts = millis() - this->prevts;
+  Serial.println(ts);
   if (ts >= period) {
     if (this->currentState) {
       this->switchOff();
