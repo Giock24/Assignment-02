@@ -6,9 +6,9 @@ const int prealarmPE = 50;
 const int alarmPE = 15;
 const long blinkPeriod = 2000;
 
-BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, Sonar* sonar, bool* waterLevelCritical) {
+BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, Sonar* sonar, bool* waterLevelCritical, ServoMotor* servo) {
   this->S = sonar;
-  // this->SM = servoMotor;
+  this->SM = servo;
   // this->Pot = potentiometer;
   this->LB = new Led(pinLedB);
   this->LC = new Led(pinLedC);

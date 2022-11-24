@@ -14,6 +14,7 @@
 #define BUTTON_PIN 6
 #define TRIG_PIN 8
 #define ECHO_PIN 9
+#define SERVO_PIN 10
 #define LIGHTSENSOR_PIN A0
 
 #endif
