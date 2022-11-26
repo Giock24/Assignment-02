@@ -2,12 +2,12 @@
 #define __SERVMOTORTASK__
 
 #include "Task.h"
-#include "Sonar.h"
+#include "SonarTask.h"
 #include "ServoMotor.h"
 
 class ServMotorTask: public Task {
 
-  Sonar* mysonar;
+  SonarTask* mysonar;
   ServoMotor* myservo;
   //enum controlState { AUTO, MANUAL } Cstate;
   enum valveState { OPEN, CLOSE } Vstate;
@@ -16,7 +16,7 @@ class ServMotorTask: public Task {
   bool checkWater();
 
   public:
-  ServMotorTask(ServoMotor* servo, Sonar* sonar);
+  ServMotorTask(ServoMotor* servo, SonarTask* sonar);
   void init(int period);
   void tick();
   int openingAngle();

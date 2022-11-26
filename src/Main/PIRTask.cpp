@@ -5,6 +5,7 @@ PIRTask::PIRTask(int pin) {
   this->pin = pin;
   this->detectedStatus = false;
   pinMode(pin, INPUT);
+  //Serial.println("Pir initialize");
   this->calibratePIR();
 }
 

@@ -17,7 +17,7 @@ void SonarTask::init(int period) {
 void SonarTask::tick() {
   /* sending impulse */
   digitalWrite(this->trigPin, LOW);
-  delayMicroseconds(3);
+  delayMicroseconds(3); 
   digitalWrite(this->trigPin, HIGH);
   delayMicroseconds(5);
   digitalWrite(this->trigPin, LOW);

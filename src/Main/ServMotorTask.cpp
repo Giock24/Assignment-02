@@ -4,7 +4,7 @@
 
 // float difference = 0;
 
-ServMotorTask::ServMotorTask(ServoMotor* servo, Sonar* sonar){
+ServMotorTask::ServMotorTask(ServoMotor* servo, SonarTask* sonar){
   this->myservo = servo;
   this->mysonar = sonar;
 }
@@ -45,7 +45,7 @@ void ServMotorTask::tick(){
 int ServMotorTask::openingAngle(){
   if(checkWater()){
     // float difference = WL_MAX - mysonar->getRiverLevel();
-    int radious = map(mysonar->getRiverLevel(), 0.00, 0.05, 180, 1 );
+    int radious = map(mysonar->getRiverLevel()*100, 0, 5, 180, 1 );
     return radious;
   }
   return 0;
