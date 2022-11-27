@@ -19,6 +19,8 @@ void ServMotorTask::init(int period){
 }
 
 void ServMotorTask::tick(){
+  this->myservo->move(this->openingAngle());
+  /*
   switch(Vstate){
     case(CLOSE):
       if(checkWater()) {
@@ -39,13 +41,14 @@ void ServMotorTask::tick(){
       break;
 
   }
+  */
 }
 
 // Questo metodo ritorna l'angolo di apertura in base a quanto è alto il livello dell'acqua.
 int ServMotorTask::openingAngle(){
   if(checkWater()){
     // float difference = WL_MAX - mysonar->getRiverLevel();
-    int radious = map(mysonar->getRiverLevel()*100, 0, 5, 180, 1 );
+    int radious = map(mysonar->getRiverLevel()*100, 0, 5, 180, 0 );
     return radious;
   }
   return 0;

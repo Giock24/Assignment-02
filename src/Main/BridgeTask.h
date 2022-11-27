@@ -6,7 +6,7 @@
 #include "Led.h"
 #include "LCD.h"
 #include "SonarTask.h"
-#include "ServoMotor.h"
+#include "ServMotorTask.h"
 
 // value of Water Level (metres)
 #define WL1 0.15
@@ -17,7 +17,7 @@ class BridgeTask: public Task {
 
   bool* waterLevelCritical;
   SonarTask* S;
-  ServoMotor* SM;
+  ServMotorTask* SM;
   // PotentiometerTask* Pot;
   Light* LC;
   Light* LB;
@@ -34,7 +34,7 @@ class BridgeTask: public Task {
 
   public:
 
-  BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServoMotor* servo);
+  BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServMotorTask* servo);
   void init(int period);
   void tick();
 

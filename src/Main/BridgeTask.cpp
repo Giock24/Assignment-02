@@ -6,7 +6,7 @@ const int prealarmPE = 36;
 const int alarmPE = 18;
 const long blinkPeriod = 2000;
 
-BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServoMotor* servo) {
+BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServMotorTask* servo) {
   this->S = sonar;
   this->SM = servo;
   // this->Pot = potentiometer;
@@ -20,7 +20,7 @@ BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar
 void BridgeTask::init(int period) {
   Task::init(period);
   lcd->clear();
-  lcd->write(1, 1, "state: ");
+  lcd->write(1, 1, "State: ");
   lcd->write(2, 1, "Level: ");
   lcd->turnOff();
   LB->switchOn();
@@ -72,7 +72,8 @@ void BridgeTask::setWaterLevelCritical(bool value) {
 void BridgeTask::changeToNormal() {
   this->setWaterLevelCritical(false);
   state = NORMAL;
-  S->normalPeriod(normalPE);
+  //S->normalPeriod(normalPE);
+  Task::init(normalPE);
   LB->switchOn();
   LC->switchOff();
   lcd->clear(2, 8, 5);
@@ -81,7 +82,8 @@ void BridgeTask::changeToNormal() {
 
 void BridgeTask::changeToPreAlarm() {
   state = PRE_ALARM;
-  S->preAlarmPeriod(prealarmPE);
+  //S->preAlarmPeriod(prealarmPE);
+  Task::init(prealarmPE);
   lcd->turnOn();
   lcd->write(1, 8, "Pre-Alarm");
 }
@@ -89,7 +91,8 @@ void BridgeTask::changeToPreAlarm() {
 void BridgeTask::changeToAlarm() {
   this->setWaterLevelCritical(true);
   state = ALARM;
-  S->alarmPeriod(alarmPE);
+  //S->alarmPeriod(alarmPE);
+  Task::init(alarmPE);
   LB->switchOff();
   LC->switchOn();
   lcd->clear(1, 8, 9);

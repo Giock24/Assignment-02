@@ -2,13 +2,16 @@
 #include "Arduino.h"
 
 ServoMotor::ServoMotor(int pin) {
-  this->myservo->attach(pin);
+  this->myservo.attach(pin);
 }
 
 void ServoMotor::move(int angle){
-  this->myservo->write(angle);
-  this->currentAngle += angle;
-  delay(15); // Questo delay è omissibile in caso di problemi dovuti all'utilizzo di milies(). Eventualmente riguardare quale può essere un lasso di tempo appropriato da dare al servo per cambiare il suo angolo.
+  float coeff = (2250.0-750.0)/180;
+  Serial.println(angle);
+  this->myservo.write(750 + angle*coeff);
+  
+  //this->currentAngle += angle;
+  //delay(15); // Questo delay è omissibile in caso di problemi dovuti all'utilizzo di milies(). Eventualmente riguardare quale può essere un lasso di tempo appropriato da dare al servo per cambiare il suo angolo.
 }
 
 int ServoMotor::getAngle(){
