@@ -1,9 +1,9 @@
 #include "BridgeTask.h"
 #include "Arduino.h"
 
-const int normalPE = 54;
-const int prealarmPE = 36;
-const int alarmPE = 18;
+const int normalPE = 75;
+const int prealarmPE = 50;
+const int alarmPE = 25;
 const long blinkPeriod = 2000;
 
 BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServMotorTask* servo) {
@@ -55,10 +55,13 @@ void BridgeTask::tick() {
       Serial.println("Alarm");
       lcd->write(2, 8, (char*) riverLevelString);
 
+      if (riverLevel > WL2 && riverLevel < WL1) {
+        this->changeToPreAlarm();
+      }
       if (riverLevel >= WL1) {
         this->changeToNormal();
       }
-       break;
+      break;
     case HUMAN_CONTROL:
       // TODO
       break;
