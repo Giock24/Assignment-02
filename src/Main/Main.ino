@@ -19,24 +19,19 @@ void setup() {
   servo = new ServoMotor(SERVO_PIN);
   btn = new Button(BUTTON_PIN);
 
-  
   sched.init(100);
   
   Task* sonar = new SonarTask(TRIG_PIN, ECHO_PIN); // sonar must be shared for ServMotorTask
   sonar->init(25);
-  sched.addTask(sonar);
   
   Task* t0 = new PIRTask(PIR_PIN);
   t0->init(50);
-  sched.addTask(t0);
 
   Task* t1 = new LightSensorTask(LIGHTSENSOR_PIN);
   t1->init(25);
-  sched.addTask(t1);
 
   Task* t2 = new SmartLTask(LED_PIN, t0, t1, &waterLevelCritical); // We have to choose the pin of smart light
   t2->init(200); // each 100ms is checked state of Smart Task
-  sched.addTask(t2);
   
   Task* t3 = new ServMotorTask(servo, sonar);
   t3->init(180);
@@ -45,7 +40,7 @@ void setup() {
   t4->init(30);
   
   Task* t5 = new BridgeTask(LED_B, LED_C, sonar, &waterLevelCritical, t3, POT_PIN, t4);
-  t4->init(180);
+  t5->init(180);
 
   sched.addTask(sonar);
   sched.addTask(t0);
