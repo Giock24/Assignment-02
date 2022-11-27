@@ -15,6 +15,7 @@
 #define TRIG_PIN 8
 #define ECHO_PIN 9
 #define SERVO_PIN 10
+#define POT_PIN 11
 #define LIGHTSENSOR_PIN A0
 
 #endif

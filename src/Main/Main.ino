@@ -5,15 +5,20 @@
 #include "Const.h"
 #include "ServoMotor.h"
 #include "ServMotorTask.h"
+#include "Button.h"
+#include "ButtonTask.h"
 
 Scheduler sched;
 ServoMotor* servo;
+Button* btn;
 
 void setup() {
   bool waterLevelCritical = false;
   Serial.begin(9600);
 
   servo = new ServoMotor(SERVO_PIN);
+  btn = new Button(BUTTON_PIN);
+
   
   sched.init(100);
   
@@ -34,12 +39,21 @@ void setup() {
   sched.addTask(t2);
   
   Task* t3 = new ServMotorTask(servo, sonar);
-  t3->init(200);
-  sched.addTask(t3); // ServoMotorTask
+  t3->init(180);
+
+  Task* t4 = new ButtonTask(btn);
+  t4->init(30);
   
-  Task* t4 = new BridgeTask(LED_B, LED_C, BUTTON_PIN, sonar, &waterLevelCritical, t3);
-  t4->init(200);
+  Task* t5 = new BridgeTask(LED_B, LED_C, sonar, &waterLevelCritical, t3, POT_PIN, t4);
+  t4->init(180);
+
+  sched.addTask(sonar);
+  sched.addTask(t0);
+  sched.addTask(t1);
+  sched.addTask(t2);
+  sched.addTask(t3); // ServoMotorTask
   sched.addTask(t4);
+  sched.addTask(t5);
   
 }
 

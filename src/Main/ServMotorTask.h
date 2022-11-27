@@ -10,7 +10,8 @@ class ServMotorTask: public Task {
   SonarTask* mysonar;
   ServoMotor* myservo;
   //enum controlState { AUTO, MANUAL } Cstate;
-  enum valveState { OPEN, CLOSE } Vstate;
+  int prevValue;
+  enum valveState { OPEN, CLOSE, MANUAL_CONTROL } Vstate;
 
   private:
   bool checkWater();
@@ -20,6 +21,8 @@ class ServMotorTask: public Task {
   void init(int period);
   void tick();
   int openingAngle();
+  void move(int angle);
+  void alterState();
 
 };
 

@@ -6,15 +6,15 @@ const int prealarmPE = 50;
 const int alarmPE = 25;
 const long blinkPeriod = 2000;
 
-BridgeTask::BridgeTask(int pinLedB, int pinLedC, int buttonPin, SonarTask* sonar, bool* waterLevelCritical, ServMotorTask* servo) {
+BridgeTask::BridgeTask(int pinLedB, int pinLedC, SonarTask* sonar, bool* waterLevelCritical, ServMotorTask* servo, int ptmPin, ButtonTask* btnTask) {
   this->S = sonar;
   this->SM = servo;
-  // this->Pot = potentiometer;
   this->LB = new Led(pinLedB);
   this->LC = new Led(pinLedC);
   this->waterLevelCritical = waterLevelCritical;
-  // this->B = new Button(buttonPin);
+  this->Pot = new Potentiometer(ptmPin);
   this->lcd = new LCD();
+  this->B = btnTask;
 }
 
 void BridgeTask::init(int period) {
@@ -61,9 +61,18 @@ void BridgeTask::tick() {
       if (riverLevel >= WL1) {
         this->changeToNormal();
       }
+      if(false){ // TaskB.buttonState == true
+        state = HUMAN_CONTROL;
+        SM->alterState();
+      }
+
       break;
     case HUMAN_CONTROL:
-      // TODO
+      SM->move(Pot->ptmAngle());
+      if(true){ // TaskB.buttonState == true
+
+      }
+
       break;
   }
 }

@@ -1,7 +1,5 @@
-#ifndef __SONAR__
-#define __SONAR__
-
-#include "Const.h"
+#ifndef __BUTTON__
+#define __BUTTON__
 
 class Button {
 
@@ -9,7 +7,6 @@ class Button {
   bool statusB;
 
   public:
-
   Button(int pin);
   bool buttonIsPressed();
 
