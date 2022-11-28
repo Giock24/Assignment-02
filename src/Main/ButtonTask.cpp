@@ -16,7 +16,10 @@ void ButtonTask::tick(){
   }
 }
 
-bool ButtonTask::buttonWasPressed(){
-  bstate = false;
-  return true;
+bool ButtonTask::WasPressed(){
+  if(bstate){
+    bstate = false;
+    return true;
+  }
+  return false;
 }

@@ -61,18 +61,17 @@ void BridgeTask::tick() {
       if (riverLevel >= WL1) {
         this->changeToNormal();
       }
-      if(false){ // TaskB.buttonState == true
+      if(HUMAN_CONTROL_COND){ // B->WasPressed() == true
         state = HUMAN_CONTROL;
         SM->alterState();
       }
-
       break;
     case HUMAN_CONTROL:
       SM->move(Pot->ptmAngle());
-      if(true){ // TaskB.buttonState == true
-
+      if(HUMAN_CONTROL_COND){ // B->WasPressed() == true
+        SM->alterState();
+        NORMAL_COND ? this->changeToNormal() : PRE_ALARM_COND ? this->changeToPreAlarm() : this->changeToAlarm();
       }
-
       break;
   }
 }

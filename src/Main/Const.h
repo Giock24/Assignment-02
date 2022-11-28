@@ -18,4 +18,8 @@
 #define POT_PIN 11
 #define LIGHTSENSOR_PIN A0
 
+#define NORMAL_COND riverLevel >= WL1
+#define PRE_ALARM_COND riverLevel > WL2 && riverLevel < WL1
+#define ALARM_COND riverLevel >= WL_MAX && riverLevel <= WL2
+#define HUMAN_CONTROL_COND B->WasPressed()
 #endif

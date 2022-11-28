@@ -22,16 +22,16 @@ void ServMotorTask::tick(){
     case(CLOSE):
       if(checkWater()) {
         this->Vstate = OPEN;
-        this->myservo->move(openingAngle());
+        this->move(openingAngle());
       }
       break;
     case(OPEN):
       if(!checkWater()){
         this->Vstate = CLOSE;
-        this->myservo->move(0); // da provare, possibile che bisogna mettere 1 invece che 0 per come è implementato il metodo Servo.write().
+        this->move(0);
       }
       else{
-        this->myservo->move(openingAngle());
+        this->move(openingAngle());
       }
       break;
   }

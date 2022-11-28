@@ -37,7 +37,7 @@ void setup() {
   t3->init(180);
 
   Task* t4 = new ButtonTask(btn);
-  t4->init(30);
+  t4->init(10);
   
   Task* t5 = new BridgeTask(LED_B, LED_C, sonar, &waterLevelCritical, t3, POT_PIN, t4);
   t5->init(180);
