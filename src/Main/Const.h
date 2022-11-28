@@ -11,11 +11,11 @@
 #define LED_PIN 3
 #define LED_B 4 // GREEN LED
 #define LED_C 5 // RED LED
-#define BUTTON_PIN 6
+#define BUTTON_PIN 7
 #define TRIG_PIN 8
 #define ECHO_PIN 9
 #define SERVO_PIN 10
-#define POT_PIN 11
+#define POT_PIN 6
 #define LIGHTSENSOR_PIN A0
 
 #define NORMAL_COND riverLevel >= WL1

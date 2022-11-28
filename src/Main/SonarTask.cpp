@@ -27,7 +27,7 @@ void SonarTask::tick() {
   float t = tUS / 1000.0 / 1000.0 / 2;
   this->currentLevel = t * vs;
 
-  Serial.println("water level -> "+ (String) this->currentLevel);
+  //Serial.println("water level -> "+ (String) this->currentLevel);
 }
 
 void SonarTask::normalPeriod(int period) {

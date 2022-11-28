@@ -29,9 +29,12 @@ void BridgeTask::init(int period) {
 
 void BridgeTask::tick() {
   char riverLevelString[6];// Buffer big enough for 5-character float
+  char actualDegree[5];
 
   float riverLevel = S->getRiverLevel();
   dtostrf((double) riverLevel, 5, 2, riverLevelString);
+  String degree = "hello";
+  //degree.toCharArray(char *buf, unsigned int bufsize)
 
   switch (state) {
     case NORMAL:
@@ -52,8 +55,12 @@ void BridgeTask::tick() {
       }
       break;
     case ALARM:
+      String(SM->openingAngle()).toCharArray(actualDegree , 5);
+    
       Serial.println("Alarm");
+      lcd->clear(3, 10, 4);
       lcd->write(2, 8, (char*) riverLevelString);
+      lcd->write(3, 10, (char*) actualDegree);
 
       if (riverLevel > WL2 && riverLevel < WL1) {
         this->changeToPreAlarm();
@@ -61,7 +68,8 @@ void BridgeTask::tick() {
       if (riverLevel >= WL1) {
         this->changeToNormal();
       }
-      if(HUMAN_CONTROL_COND){ // B->WasPressed() == true
+      if(false){ // B->WasPressed() == true
+        Serial.println("HUMAN CONTROL ACTIVATED!");
         state = HUMAN_CONTROL;
         SM->alterState();
       }
@@ -87,7 +95,7 @@ void BridgeTask::changeToNormal() {
   Task::init(normalPE);
   LB->switchOn();
   LC->switchOff();
-  lcd->clear(2, 8, 5);
+  lcd->clear(2, 8, 6);
   lcd->turnOff();  
 }
 
@@ -97,6 +105,7 @@ void BridgeTask::changeToPreAlarm() {
   Task::init(prealarmPE);
   lcd->turnOn();
   lcd->write(1, 8, "Pre-Alarm");
+  lcd->clear(3, 1, 13);
 }
 
 void BridgeTask::changeToAlarm() {
@@ -108,4 +117,5 @@ void BridgeTask::changeToAlarm() {
   LC->switchOn();
   lcd->clear(1, 8, 9);
   lcd->write(1, 8, "Alarm");
+  lcd->write(3, 1, "Degrees: ");
 }
