@@ -1,3 +1,4 @@
+// members name: Gianluca Consoli, Giovanni Babbi, Davide Zandonella
 #include "Scheduler.h"
 #include "SmartLTask.h"
 #include "BridgeTask.h"
