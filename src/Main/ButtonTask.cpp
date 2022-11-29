@@ -12,8 +12,7 @@ void ButtonTask::init(int period) {
 void ButtonTask::tick(){
   if(btn->buttonIsPressed()){
     delay(20);
-    //bstate = true;
-    Serial.println("btnpressed");
+    bstate = true;
   }
 }
 
