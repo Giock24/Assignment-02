@@ -13,7 +13,7 @@ class ButtonTask: public Task{
   ButtonTask(Button* btn);
   void init(int period);
   void tick();
-  bool WasPressed();
+  bool wasPressed();
 
 };
 

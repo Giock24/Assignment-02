@@ -68,7 +68,7 @@ void BridgeTask::tick() {
       if (riverLevel >= WL1) {
         this->changeToNormal();
       }
-      if(false){ // B->WasPressed() == true
+      if(B->wasPressed()){ // B->WasPressed() == true
         Serial.println("HUMAN CONTROL ACTIVATED!");
         state = HUMAN_CONTROL;
         SM->alterState();
