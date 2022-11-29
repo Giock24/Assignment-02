@@ -7,7 +7,8 @@
 
 class ButtonTask: public Task{
   Button* btn;
-  bool bstate;
+  bool oldstate;
+  bool newstate;
 
   public:
   ButtonTask(Button* btn);

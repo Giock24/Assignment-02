@@ -2,25 +2,42 @@
 
 ButtonTask::ButtonTask(Button* btn){
   this->btn = btn;
+  this->oldstate = true;
+  this->newstate = false;
 }
 
 void ButtonTask::init(int period) {
   Task::init(period);
-  bstate = false;
 }
 
 void ButtonTask::tick(){
-  if(btn->buttonIsPressed()){
+  bool readvalue = btn->buttonIsPressed();
+  if(readvalue /*&& !oldstate*/) {
     delay(20);
-    bstate = true;
-    Serial.println("btnpressed");
   }
+  oldstate = readvalue;
+
+  /*if(btn->buttonIsPressed() && oldstate != newstate){
+    delay(20);
+
+    Serial.println("btnpressed");
+  }*/
 }
 
 bool ButtonTask::wasPressed(){
-  if(bstate){
-    bstate = false;
+
+  //oldstate = newstate;
+  bool readvalue = btn->buttonIsPressed();
+  if(readvalue /*&& !oldstate*/) {
+    delay(20);
+  }
+  newstate = readvalue;
+
+  return newstate != oldstate;
+
+ /* if(newstate){
+    newstate = false;
     return true;
   }
-  return false;
+  return false;*/
 }
