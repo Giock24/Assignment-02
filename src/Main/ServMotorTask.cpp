@@ -34,13 +34,15 @@ void ServMotorTask::tick(){
         this->move(openingAngle());
       }
       break;
+    default:
+      break;
   }
 }
 
 // Questo metodo ritorna l'angolo di apertura in base a quanto è alto il livello dell'acqua.
 int ServMotorTask::openingAngle(){
   if(checkWater()){
-    int radious = map(mysonar->getRiverLevel()*100, 0, 5, 180, 0 );
+    int radious = map(mysonar->getRiverLevel()*100, 0, WL2*100, 180, 0 );
     return radious;
   }
   return 0;
@@ -56,7 +58,9 @@ void ServMotorTask::move(int angle){
 void ServMotorTask::alterState(){
   if(Vstate != MANUAL_CONTROL){
     Vstate = MANUAL_CONTROL;
+    //Serial.println("Now in human control");
   }else{
     Vstate = checkWater() ? OPEN : CLOSE;
+    //Serial.println("Now in automatic control");
   }
 }

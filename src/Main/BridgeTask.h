@@ -11,8 +11,8 @@
 #include "ServMotorTask.h"
 
 // value of Water Level (metres)
-#define WL1 0.15
-#define WL2 0.10
+#define WL1 0.30
+#define WL2 0.15
 #define WL_MAX 0.00
 
 class BridgeTask: public Task {
