@@ -58,15 +58,14 @@ void BridgeTask::tick() {
       //char buf[8];
       //char* degreeString = (char*) &buf;
       //char* degreeString = (char*) malloc(8 * sizeof(char));
-      //String().toCharArray(actualDegree, 4);
+      String(SM->openingAngle()).toCharArray(actualDegree , 5);
 
       //sprintf(degreeString, "%4i%c", abs(SM->openingAngle()), 223);
     
       Serial.println("Alarm");
       lcd->clear(3, 10, 4);
       //lcd->write(3, 10, (char*) actualDegree);
-      lcd->write(3, 10, degreeString);
-
+      lcd->write(3, 10, actualDegree);
       lcd->write(2, 8, (char*) riverLevelString);
 
       if (riverLevel > WL2 && riverLevel < WL1) {
@@ -76,20 +75,20 @@ void BridgeTask::tick() {
         this->changeToNormal();
       }
       if(B->wasPressed()){ // B->wasPressed()
-        Serial.println("HUMAN CONTROL SELECTED!");
+        //Serial.println("HUMAN CONTROL SELECTED!");
         state = HUMAN_CONTROL;
-        //SM->alterState();
-        Serial.println("HUMAN CONTROL ACTIVATED!");
+        SM->alterState();
       }
-      free(degreeString);
+      //free(degreeString);
       break;
     case HUMAN_CONTROL:
-      Serial.println("SWITCHED TO HUMAN CONTROL");
-/*
-      //SM->move(Pot->ptmAngle());
-      //lcd->write(2, 8, (char*) riverLevelString);
+      String(SM->openingAngle()).toCharArray(actualDegree , 5);
+      //Serial.println("SWITCHED TO HUMAN CONTROL");
+
+      SM->move(Pot->ptmAngle());
+      lcd->write(2, 8, (char*) riverLevelString);
       lcd->clear(3, 10, 4);
-      //lcd->write(3, 10, (char*) actualDegree);*/
+      lcd->write(3, 10, (char*) actualDegree);
       if(B->wasPressed()){
         SM->alterState();
         NORMAL_COND ? this->changeToNormal() : PRE_ALARM_COND ? this->changeToPreAlarm() : this->changeToAlarm();

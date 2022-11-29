@@ -13,6 +13,7 @@ void ButtonTask::init(int period) {
 void ButtonTask::tick(){
   bool readvalue = btn->buttonIsPressed();
   if(readvalue /*&& !oldstate*/) {
+    Serial.println("BUTTON PRESSED!");
     delay(20);
   }
   oldstate = readvalue;
